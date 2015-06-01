@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="health-package-json" namespace="/health" extends="crud-default">
+		<action name="homebase" class="com.ec.action.health.HomeBaseInfoAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">homes.*,page,total,rows</param>
+			</result>
+			<result name="input">/content/health/baseinfo/homeinfo/add-home-profile.jsp</result>
+			<result name="viewHomeBaseInfo">/content/health/baseinfo/homeinfo/search_home_profile.jsp</result>
+			<result name="addPeriodServe">/content/health/baseinfo/homeinfo/add_period_serve.jsp</result>
+		</action>
+		
+		<action name="homevisit" class="com.ec.action.health.HomeVisitDetailAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">details.*,page,total,rows</param>
+			</result>
+			<result name="input">/content/health/baseinfo/homeinfo/add_period_serve.jsp</result>
+		</action>
+		
+		<action name="person" class="com.ec.action.health.PersonBaseInfoAction">
+			<result name="list" type="json">
+				<param name="includeProperties">persons.*,page,total,rows</param>
+			</result>
+			<result name="personProblems" type="json">
+				<param name="includeProperties">personProblems.*,page,total,rows</param>
+			</result>			
+			<result name="input">/content/health/baseinfo/residentinfo/add_resident_profile.jsp</result>
+			<result name="addPersonFromHome">/content/health/baseinfo/residentinfo/add_resident_profile.jsp</result>
+			
+			<result name="viewPersonBaseInfo">/content/health/baseinfo/homeinfo/home_resident_search.jsp</result>
+			<result name="viewPersonInfo_1">/content/health/baseinfo/homeinfo/home_base_info.jsp</result>
+			<result name="viewPersonInfo_2">/content/health/baseinfo/homeinfo/home_dangerous_factor.jsp</result>
+			
+			<result name="addHealthQuestion">/content/health/baseinfo/homeinfo/add_health_question.jsp</result>
+			<result name="addTempProblem">/content/health/baseinfo/homeinfo/add_temporary_question.jsp</result>
+			<result name="addTjYbzk">/content/health/baseinfo/homeinfo/add_general_case.jsp</result>
+			<result name="addTjShfs">/content/health/baseinfo/homeinfo/add_life_style.jsp</result>
+			<result name="addTjZqgn">/content/health/baseinfo/homeinfo/add_viscera_function.jsp</result>
+			<result name="addTjTjct">/content/health/baseinfo/homeinfo/add_search_body.jsp</result>
+			<result name="addTjFzjc">/content/health/baseinfo/homeinfo/add_assist_search.jsp</result>
+			<result name="addTjZytz">/content/health/baseinfo/homeinfo/add_body_identification.jsp</result>
+			<result name="addTjTjjl">/content/health/baseinfo/homeinfo/add_search_recode.jsp</result>
+			
+			<result name="addMainDrug">/content/health/baseinfo/homeinfo/add_pharmacy_case.jsp</result>
+			<result name="addMainMyjzs">/content/health/baseinfo/homeinfo/add_immunization_history.jsp</result>
+			<result name="addHealthEdu">/content/health/baseinfo/homeinfo/add_health_education.jsp</result>
+			
+			<result name="gravida">/content/health/baseinfo/homeinfo/home_gravida_info.jsp</result>
+			<result name="addGravida">/content/health/baseinfo/homeinfo/gravida_recode_table.jsp</result>
+			
+			<result name="printOne">/content/health/baseinfo/print/print_page.jsp</result>
+			<result name="printTwo">/content/health/baseinfo/print/print_page2.jsp</result>
+			<result name="printThree">/content/health/baseinfo/print/print_page3.jsp</result>
+			<result name="selectTjDate">/content/health/baseinfo/print/select-tjdate.jsp</result>			
+		</action>
+		
+		<action name="personex" class="com.ec.action.health.PersonBaseInfoExAction">
+		
+		</action>
+		
+		<action name="child" class="com.ec.action.health.ChildBaseInfoAction">
+			<result name="list" type="json">
+				<param name="includeProperties">childs.*,page,total,rows</param>
+			</result>
+			<result name="childHwsd" type="json">
+				<param name="root">hwsds</param>
+			</result>
+			<result name="addChild">/content/health/baseinfo/homeinfo/child_base_info.jsp</result>
+			<result name="listinfo">/content/health/baseinfo/homeinfo/home_child_info.jsp</result>
+		</action>
+		
+		<action name="childfeedsf" class="com.ec.action.health.ChildFeedSfAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">sfjl</param>
+			</result>
+			<result name="add">/content/health/childhealth/childinformation/child_feed_sf.jsp</result>
+			<result name="update">/content/health/childhealth/childinformation/child_feed_sf.jsp</result>
+		</action>
+		
+		<action name="childsfjl" class="com.ec.action.health.ChildNewbornSfjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">sfjl</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/update_child_recode.jsp</result>
+			<result name="update">/content/health/baseinfo/homeinfo/update_child_recode.jsp</result>
+		</action>
+		
+		<action name="childsfjl2" class="com.ec.action.health.ChildOneTwoyearSfjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">sfjl</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_otchild_recode.jsp</result>
+			<result name="update">/content/health/baseinfo/homeinfo/add_otchild_recode.jsp</result>
+		</action>
+		
+		<action name="childsfjl3" class="com.ec.action.health.ChildThreeyearSfjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">sfjl</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_3ochild_recode.jsp</result>
+			<result name="update">/content/health/baseinfo/homeinfo/add_3ochild_recode.jsp</result>
+		</action>
+		
+		<action name="childrisk" class="com.ec.action.health.ChildRiskInfoAction">
+			<result name="list" type="json">
+				<param name="includeProperties">risks.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/dangerous_child_manage.jsp</result>
+			<result name="update">/content/health/baseinfo/homeinfo/dangerous_child_manage.jsp</result>
+		</action>
+		
+		<action name="childrisksfjl" class="com.ec.action.health.ChildRiskSfjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/childhealth/childinformation/dangerous_child_specially_manage.jsp</result>
+			<result name="update">/content/health/childhealth/childinformation/dangerous_child_specially_manage.jsp</result>
+		</action>
+		
+		<action name="pregcqsf1" class="com.ec.action.health.PregFirstCqsfAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="sfjl" type="json">
+				<param name="includeProperties">entity.*</param>
+			</result>			
+			<result name="add">/content/health/gravida_manage/gravida_info/once_gravida_recode.jsp</result>
+			<result name="update">/content/health/gravida_manage/gravida_info/once_gravida_recode.jsp</result>
+			<result name="update1">/content/health/baseinfo/homeinfo/gravida_recode_table.jsp</result>
+			<result name="listinfo">/content/health/baseinfo/homeinfo/gravida_info_search.jsp</result>
+			<result name="gravidainfo">/content/health/gravida_manage/gravida_info/update_gravida_info.jsp</result>
+		</action>
+		
+		<action name="pregcqsf2" class="com.ec.action.health.PregNextCqsfAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/gravida_manage/gravida_info/2-5_gravida_info.jsp</result>
+			<result name="update">/content/health/gravida_manage/gravida_info/2-5_gravida_info.jsp</result>
+		</action>
+		
+		<action name="pregchfs1" class="com.ec.action.health.PregChfsAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/gravida_manage/gravida_info/chan_after_info.jsp</result>
+			<result name="update">/content/health/gravida_manage/gravida_info/chan_after_info.jsp</result>
+		</action>
+		
+		<action name="pregchfs2" class="com.ec.action.health.PregCh42tJkjcAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/gravida_manage/gravida_info/42day_health_info.jsp</result>
+			<result name="update">/content/health/gravida_manage/gravida_info/42day_health_info.jsp</result>
+		</action>								
+		
+		<action name="problem" class="com.ec.action.health.PersonMainProblemAction">
+			<result name="list" type="json">
+				<param name="includeProperties">problems.*,page,total,rows</param>
+			</result>
+			<result name="homeMainProblem" type="json">
+				<param name="includeProperties">problems.*,page,total,rows</param>
+			</result>
+			<result name="jbpctj" type="json">
+				<param name="includeProperties">jbpcs.*,page,total,rows</param>
+			</result>			
+			<result name="modifyZHBZMainProblem">/content/health/baseinfo/disease/disease_manage_info.jsp</result>
+			<result name="viewZHBZMainProblem">/content/health/baseinfo/disease/comprehensive_disease_manage.jsp</result>
+			<result name="modifySMainProblem">/content/health/chronic/EH/EH_monitor_list_alter.jsp</result>
+			<result name="viewSMainProblem">/content/health/chronic/EH/EH_monitor_list.jsp</result>
+			<result name="modifyBvobMainProblem">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_list_alter.jsp</result>
+			<result name="viewBvobMainProblem">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_list.jsp</result>
+			<result name="modifyDmMainProblem">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_list_alter.jsp?dimName=DmClassType</result>
+			<result name="viewDmMainProblem">/content/health/chronic/DM/DM_monitor_list.jsp</result>
+			<result name="modifyGxbMainProblem">/content/health/chronic/coronaryheart/coronaryheart_monitor_list_alter.jsp</result>
+			<result name="viewGxbMainProblem">/content/health/chronic/coronaryheart/coronaryheart_monitor_list.jsp</result>	
+			<result name="modifyExzlMainProblem">/content/health/chronic/cancer/cancer_monitor_list_alter.jsp</result>
+			<result name="viewExzlMainProblem">/content/health/chronic/cancer/cancer_monitor_list.jsp</result>
+			<result name="modifyCopdMainProblem">/content/health/chronic/coronaryheart/coronaryheart_monitor_list_alter.jsp?dimName=COPDXGJB</result>
+			<result name="viewCopdMainProblem">/content/health/chronic/COPD/copd_monitor_list.jsp</result>
+			<result name="modifyCjMainProblem">/content/health/deformity_manage/mind_deformity/update_mind_deformity.jsp</result>
+			<result name="viewCjMainProblem">/content/health/deformity_manage/mind_deformity/mind_deformity_search.jsp</result>
+		    <result name="view">/content/health/baseinfo/homeinfo/add_health_question.jsp</result>	
+		    	<result name="newInfo" type="json">
+				<param name="root">problem</param>
+			</result>																	
+		</action>
+		
+		<action name="problemgxy" class="com.ec.action.health.PersonMainProblemGxyAction">
+		
+		</action>
+		
+	    <action name="problemtnb" class="com.ec.action.health.PersonMainProblemTnbAction">
+		
+		</action>
+		
+		<action name="tempproblem" class="com.ec.action.health.PersonTempProblemAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tempProblems.*,page,total,rows</param>
+			</result>
+				<result name="add">/content/health/baseinfo/homeinfo/add_temporary_question.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_temporary_question.jsp</result>
+		</action>
+		
+		<action name="maindrug" class="com.ec.action.health.PersonMainDrugAction">
+			<result name="list" type="json">
+				<param name="includeProperties">drugs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_pharmacy_case.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_pharmacy_case.jsp</result>
+		</action>
+		
+		<action name="myjzs" class="com.ec.action.health.PersonMainMyjzsAction">
+			<result name="list" type="json">
+				<param name="includeProperties">myjzs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_immunization_history.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_immunization_history.jsp</result>
+		</action>
+		
+		<action name="edu" class="com.ec.action.health.PersonHealthEducationAction">
+			<result name="list" type="json">
+				<param name="includeProperties">edus.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_health_education.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_health_education.jsp</result>
+		</action>	
+		
+		<action name="tj" class="com.ec.action.health.PersonTjAction">
+			<result name="list" type="json">
+				<param name="includeProperties">ybzks.*,page,total,rows</param>
+			</result>
+			<result name="view">/content/health/chronic/flowmonitor/health_feedback_print.jsp</result>
+		</action>					
+		
+		<action name="tjybzk" class="com.ec.action.health.PersonTjYbzkAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjYbzks.*,page,total,rows</param>
+			</result>
+			<result name="ybzk" type="json">
+				<param name="root">entity</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_general_case.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_general_case.jsp</result>
+		</action>	
+		
+		<action name="tjshfs" class="com.ec.action.health.PersonTjShfsAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjYhfs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_life_style.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_life_style.jsp</result>
+		</action>
+		
+		<action name="tjzqgn" class="com.ec.action.health.PersonTjZqgnAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjZqgn.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_viscera_function.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_viscera_function.jsp</result>
+		</action>
+		
+		<action name="tjct" class="com.ec.action.health.PersonTjCtAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjCt.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_search_body.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_search_body.jsp</result>
+		</action>
+		
+		<action name="tjfzjc" class="com.ec.action.health.PersonTjFzjcAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjFzjc.*,page,total,rows</param>
+			</result>
+			<result name="tjfzjc" type="json">
+				<param name="root">entity</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_assist_search.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_assist_search.jsp</result>
+		</action>
+		
+		<action name="tjzytz" class="com.ec.action.health.PersonTjZytzAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjZytz.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_body_identification.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_body_identification.jsp</result>
+		</action>
+		
+		<action name="tjtjjl" class="com.ec.action.health.PersonTjTjjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjTjjl.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_search_recode.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_search_recode.jsp</result>
+		</action>	
+		
+		<action name="slowsoap" class="com.ec.action.health.SlowDisSoapAction">
+			<result name="list" type="json">
+				<param name="includeProperties">soaps.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/chronic/EH/EH_monitor_question_check.jsp</result>
+			<result name="view">/content/health/chronic/EH/EH_monitor_question_check.jsp</result>
+		</action>	
+		
+		<action name="slowbqlc" class="com.ec.action.health.SlowDisBqlcAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="personBqlcsList" type="json">
+				<param name="includeProperties">personBqlcs.*,page,total,rows</param>
+			</result>
+		</action>		
+		
+		<action name="slowbqlcgxy" class="com.ec.action.health.SlowDisBqlcGxyAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+				<result name="newRecord" type="json">
+				<param name="root">blqc</param>
+			</result>
+			<result name="add">/content/health/chronic/EH/EH_monitor_record_check.jsp</result>
+			<result name="view">/content/health/chronic/EH/EH_monitor_record_check.jsp</result>
+			<result name="EH-print">/content/health/chronic/EH/EH_print_info.jsp</result>
+		</action>
+		
+		<action name="slowbqlcnxg" class="com.ec.action.health.SlowDisBqlcNxgAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">bqlc</param>
+			</result>			
+			<result name="add">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_flow_check.jsp</result>
+			<result name="view">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_flow_check.jsp</result>
+		</action>
+		
+		<action name="slowbqlctnb" class="com.ec.action.health.SlowDisBqlcTnbAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">bqlc</param>
+			</result>
+			<result name="add">/content/health/chronic/DM/DM_monitor_flow_check.jsp</result>
+			<result name="view">/content/health/chronic/DM/DM_monitor_flow_check.jsp</result>
+			<result name="DM-print">/content/health/chronic/DM/DM_print_info.jsp</result>
+		</action>
+		<action name="slowbqlczhbz" class="com.ec.action.health.SlowDisBqlcZhbzAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+				<result name="newRecord" type="json">
+				<param name="root">bqlc</param>
+			</result>
+			<result name="add">/content/health/baseinfo/disease/add_flow_info.jsp</result>
+			<result name="view">/content/health/baseinfo/disease/add_flow_info.jsp</result>
+		</action>
+		<action name="slowbqlcgxb" class="com.ec.action.health.SlowDisBqlcGxbAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">bqlc</param>
+			</result>
+			<result name="add">/content/health/chronic/coronaryheart/coronaryheart_monitor_flow_check.jsp</result>
+			<result name="view">/content/health/chronic/coronaryheart/coronaryheart_monitor_flow_check.jsp</result>
+		</action>
+		
+		<action name="slowbqlcexzl" class="com.ec.action.health.SlowDisBqlcExzlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">bqlc</param>
+			</result>			
+			<result name="add">/content/health/chronic/cancer/cancer_monitor_flow_check.jsp</result>
+			<result name="view">/content/health/chronic/cancer/cancer_monitor_flow_check.jsp</result>
+		</action>
+		
+		<action name="slowbqlccopd" class="com.ec.action.health.SlowDisBqlcMzfbAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+				<result name="newRecord" type="json">
+				<param name="root">bqlc</param>
+			</result>
+			<result name="add">/content/health/chronic/COPD/copd_monitor_flow_check.jsp</result>
+			<result name="view">/content/health/chronic/COPD/copd_monitor_flow_check.jsp</result>
+		</action>
+		
+		<action name="cjglsfjl" class="com.ec.action.health.CjglPersonSfjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">bqlcs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/deformity_manage/mind_deformity/add_mind_deformity.jsp</result>
+			<result name="view">/content/health/deformity_manage/mind_deformity/add_mind_deformity.jsp</result>
+			<result name="print_cjgl">/content/health/deformity_manage/mind_deformity/mind_deformity_print.jsp</result>
+		</action>												
+		
+		<action name="slowcrbrsgxy" class="com.ec.action.health.SlowDisCrbrsGxyAction">
+			<result name="list" type="json">
+				<param name="includeProperties">crbrs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/chronic/EH/EH_monitor_access_check.jsp</result>
+			<result name="view">/content/health/chronic/EH/EH_monitor_access_check.jsp</result>
+		</action>
+		
+		<action name="slowcrbrsnxg" class="com.ec.action.health.SlowDisCrbrsNxgAction">
+			<result name="list" type="json">
+				<param name="includeProperties">crbrs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_crbrs_check.jsp</result>
+			<result name="view">/content/health/chronic/blood_vessel_of_brain/bvob_monitor_crbrs_check.jsp</result>
+		</action>
+		
+		<action name="slowcrbrstnb" class="com.ec.action.health.SlowDisCureEffectTnbAction">
+			<result name="list" type="json">
+				<param name="includeProperties">crbrs.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/chronic/DM/DM_monitor_grade_check.jsp</result>
+			<result name="view">/content/health/chronic/DM/DM_monitor_grade_check.jsp</result>
+		</action>		
+		
+		<action name="slowcuretnb" class="com.ec.action.health.SlowDisCureDetailTnbAction">
+			<result name="list" type="json">
+				<param name="includeProperties">cures.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/chronic/DM/DM_monitor_cure_check.jsp</result>
+			<result name="view">/content/health/chronic/DM/DM_monitor_cure_check.jsp</result>
+		</action>
+		
+		<action name="cjgl" class="com.ec.action.health.CjglAction">
+			<result name="list" type="json">
+				<param name="includeProperties">cjs.*,page,total,rows</param>
+			</result>
+		</action>	
+		
+		<action name="zyqk" class="com.ec.action.health.PersonMainproZyAction">
+			<result name="list" type="json">
+				<param name="includeProperties">proplems.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_health_question_zhuyuan.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_health_question_zhuyuan.jsp</result>
+		</action>
+		
+		<action name="soap" class="com.ec.action.health.DicDiseaseSoapPatternAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">patterns.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/sys/soap-input.jsp</result>
+			<result name="view">/content/sys/soap-input.jsp</result>				
+		</action>	
+		
+		<action name="xjmb" class="com.ec.action.health.DicHeathEduPatternAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">patterns.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/sys/publicity_add.jsp</result>
+			<result name="view">/content/sys/publicity_add.jsp</result>				
+		</action>
+		
+		<action name="jkwtzd" class="com.ec.action.health.DicHealthProblemsAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">dicList.*,page,total,rows</param>
+			</result>
+			<result name="newRecord" type="json">
+				<param name="root">dp</param>
+			</result>	
+			<result name="add">/content/sys/health_problems_alter.jsp</result>
+			<result name="view">/content/sys/health_problems_alter.jsp</result>				
+		</action>
+		
+		<action name="HRR" class="com.ec.action.health.HealthReportRegAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">hrrList.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/health_supervision/Health_sup_report_add.jsp</result>
+			<result name="view">/content/health/health_supervision/Health_sup_report_add.jsp</result>				
+		</action>
+		
+		<action name="HCR" class="com.ec.action.health.HealthCheckRegAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">hcrList.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/health_supervision/Health_sup_record_add.jsp</result>
+			<result name="view">/content/health/health_supervision/Health_sup_record_add.jsp</result>				
+		</action>	
+		
+			<action name="SCE" class="com.ec.action.health.SelfCareEvaluateAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">sceList.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/add_old_assess.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/add_old_assess.jsp</result>				
+		</action>	
+		
+		<action name="GWBR" class="com.ec.action.health.PersonHeigthDangrousAction">
+			<result name="list" type="json">
+				<param name="includeProperties">persons.*,page,total,rows</param>
+			</result>			
+		</action>	
+		
+		<action name="PTSFJL" class="com.ec.action.health.PersonTjSfjlAction">
+			<result name="list" type="json">
+				<param name="includeProperties">sfjls.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/health/baseinfo/homeinfo/home_record_check.jsp</result>
+			<result name="view">/content/health/baseinfo/homeinfo/home_record_check.jsp</result>			
+		</action>
+		
+		<action name="SFTX" class="com.ec.action.health.sftxAction">
+			<result name="list" type="json">
+				<param name="includeProperties">tjjls.*,page,total,rows</param>
+			</result>
+			<result name="list1" type="json">
+				<param name="includeProperties">zhbzs.*,page,total,rows</param>
+			</result>
+			<result name="list2" type="json">
+				<param name="includeProperties">crss.*,page,total,rows</param>
+			</result>
+			<result name="list3" type="json">
+				<param name="includeProperties">cpss.*,page,total,rows</param>
+			</result>
+				<result name="list4" type="json">
+				<param name="includeProperties">slowm.*,page,total,rows</param>
+			</result>
+			<result name="list5" type="json">
+				<param name="includeProperties">cis.*,page,total,rows</param>
+			</result>
+				<result name="list6" type="json">
+				<param name="includeProperties">pis.*,page,total,rows</param>
+			</result>				
+		</action>
+		
+		<action name="CISFTX" class="com.ec.action.health.ExportExcelChildInfoAction">
+			<result name="list" type="json">
+				<param name="includeProperties">cis.*,page,total,rows</param>
+			</result>	
+		</action>
+		
+		<action name="MBSFTX" class="com.ec.action.health.SlowBqlcSftxAction">
+			<result name="list" type="json">
+				<param name="includeProperties">slowm.*,page,total,rows</param>
+			</result>	
+		</action>
+		
+		<action name="PREGSFTX" class="com.ec.action.health.ExcelPregReportAction">
+			<result name="list" type="json">
+				<param name="includeProperties">pis.*,page,total,rows</param>
+			</result>
+		</action>			
+		
+		<action name="webcfg" class="com.ec.action.report.WebRepCfgAction">
+		
+		</action>
+		
+		<action name="weblog" class="com.ec.action.report.WebRepLogAction">
+		
+		</action>																			
+	</package>
+</struts>

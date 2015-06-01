@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	>
+	<description>quartz配置</description>
+	
+	<bean id="schReportJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.ec.jobs.report.SchReportJob</value>
+		</property>
+	</bean>
+	<bean id="smsPoolJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.ec.jobs.report.SmsPoolJob</value>
+		</property>
+	</bean>
+	
+	<!-- 
+	秒 0-59 , - * /
+	分 0-59 , - * /
+	小时 0-23 , - * /
+	日期 1-31 , - * ? / L W C
+	月份 1-12 或者 JAN-DEC , - * /
+	星期 1-7 或者 SUN-SAT , - * ? / L C #
+	年（可选） 留空, 1970-2099 , - * /
+	-->			
+	<bean id="schReportJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="schReportJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 1 * * ?</value>
+		</property>
+	</bean>
+	<bean id="schSmsJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="smsPoolJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0/30 * * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 启动工作-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="autoStartup" value="true"/>
+		<property name="schedulerName" value="cronScheduler" />
+		<property name="triggers">
+			<list>			  
+			    <ref bean="schReportJobTrigger" />
+			    <ref bean="schSmsJobTrigger" />
+			</list>
+		</property>
+	</bean>	
+</beans>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+   assembly="AlarmMapClient"
+   namespace="MDS.Domain">
+
+  <class name ="AlarmLog" table="alarm_log"  lazy="false">
+    <id name="Id" column="id">
+      <generator class="native" />
+    </id>
+    <property name ="AlarmType" column="alarm_type"/>
+    <property name ="DeviceId" column="device_id"/>
+    <property name ="Channel" column="channel"/>
+    <property name ="Nchannel" column="nchannel"/>
+    <property name ="Status" column="status"/>
+    <property name ="Param" column="param"/>
+    <property name ="IsDel" column="is_del"/>
+    <property name ="DelTime" column="del_time"/>
+    <property name ="IsAlarmed" column="is_alarmed"/>
+    <property name ="AlarmDealTime" column="alarm_deal_time"/>
+    <property name ="AlarmTime" column="alarm_time"/>
+    <property name ="Latitude" column="latitude"/>
+    <property name ="Longitude" column="longitude"/>
+    <property name ="Latitude2" column="latitude2"/>
+    <property name ="Longitude2" column="longitude2"/>
+    <property name ="UserName" column="username"/>
+    <property name ="Tel" column="tel"/>
+    <property name ="Address" column="address"/>
+    <property name ="ChannelName" column="channel_name"/>
+    <property name ="MapPic" column="map_pic"/>
+    <property name="AlarmDealName" column="alarm_deal_oprname"/>
+    <property name="ZbLog" column="zblog"/>
+  </class>
+</hibernate-mapping>

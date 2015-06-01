@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Organization grade="0" id="0" modifiedTime="1388049789984">
+  <Department id="1" name="root" type="公安" coding="330106001">
+    <Department id="4" name="一兆测试" type="公安" coding="330106001002" />
+    <Department id="5" name="公司测试" type="公安" coding="330106001003">
+      <Device channel="1" desc="" id="3301061000130" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="31011-室外百万高清枪机" type="device.type.AutoRegister" alertout="10" port="31011" user="admin" password="emax250038" alert="0" coding="330106001003" typeid="5">
+        <Channel camera="2" id="330106100013001" num="1" title="通道1" type="0" />
+        <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+        <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+        <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+        <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+        <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+        <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+        <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+        <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+        <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+        <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+      </Device>
+    </Department>
+    <Department id="6" name="A" type="公安" coding="330106001004" />
+    <Department id="7" name="用户测试" type="公安" coding="330106001005">
+      <Device channel="4" desc="" id="3301061000138" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1,2,3,4$9002:1,2,3,4$9004:1,2,3,4" title="31027-武夷山公交测试" type="device.type.AutoRegister" alertout="10" port="31027" user="admin" password="" alert="0" coding="330106001005" typeid="5">
+        <Channel camera="1" id="330106100013801" num="1" title="通道1" type="0" />
+        <Channel camera="1" id="330106100013802" num="2" title="通道2" type="0" />
+        <Channel camera="1" id="330106100013803" num="3" title="通道3" type="0" />
+        <Channel camera="1" id="330106100013804" num="4" title="通道4" type="0" />
+        <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+        <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+        <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+        <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+        <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+        <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+        <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+        <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+        <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+        <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+      </Device>
+      <Device channel="1" desc="" id="3301061000148" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="55555--HJW3G测试" type="device.type.AutoRegister" alertout="10" port="55555" user="admin" password="" alert="0" coding="330106001005" typeid="5">
+        <Channel camera="2" id="330106100014801" num="1" title="通道1" type="0" />
+        <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+        <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+        <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+        <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+        <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+        <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+        <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+        <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+        <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+        <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+      </Device>
+      <Device channel="4" desc="" id="3301061000149" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1,2,3,4$9002:1,2,3,4$9004:1,2,3,4" title="31015测试" type="device.type.AutoRegister" alertout="10" port="31015" user="admin" password="" alert="0" coding="330106001005" typeid="5">
+        <Channel camera="1" id="330106100014901" num="1" title="通道1" type="0" />
+        <Channel camera="1" id="330106100014902" num="2" title="通道2" type="0" />
+        <Channel camera="1" id="330106100014903" num="3" title="通道3" type="0" />
+        <Channel camera="1" id="330106100014904" num="4" title="通道4" type="0" />
+        <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+        <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+        <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+        <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+        <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+        <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+        <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+        <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+        <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+        <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+      </Device>
+    </Department>
+    <Department id="8" name="11" type="公安" coding="330106001006" />
+    <Department id="10" name="2" type="公安" coding="330106001007" />
+    <Device channel="1" desc="" id="3301061000001" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="联通3G单路视频服务器121201" type="device.type.AutoRegister" alertout="10" port="31201" user="admin" password="" alert="0" coding="330106001" typeid="5">
+      <Channel camera="2" id="330106100000101" num="1" title="通道1" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000004" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="联通3G单路视频服务器121203" type="device.type.AutoRegister" alertout="10" port="31203" user="admin" password="" alert="0" coding="330106001" typeid="5">
+      <Channel camera="2" id="330106100000401" num="1" title="通道1" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000005" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="联通3G单路视频服务器121204" type="device.type.AutoRegister" alertout="10" port="31204" user="admin" password="" alert="0" coding="330106001" typeid="5">
+      <Channel camera="2" id="330106100000501" num="1" title="通道1" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000006" ip="218.56.32.158" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="单路视频服务器121127" type="device.type.NVS" alertout="10" port="9001" user="admin" password="" alert="0" coding="330106001" typeid="3">
+      <Channel camera="2" id="330106100000601" num="1" title="通道1" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000031" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1" title="联通3G单路视频服务器121202" type="device.type.AutoRegister" alertout="10" port="31205" user="admin" password="" alert="0" coding="330106001" typeid="5">
+      <Channel camera="2" id="330106100003101" num="1" title="通道1" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000063" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1$9007:1" title="30413-攀枝花" type="device.type.AutoRegister" alertout="10" port="30413" user="admin" password="" alert="1" coding="330106001" typeid="5">
+      <Channel camera="2" id="330106100006301" num="1" title="通道1" type="0" />
+      <Alarm alertgrade="1" alerttype="1" num="1" title="报警输入1" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000082" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1$9007:1" title="3G船舶视频监控30419" type="device.type.AutoRegister" alertout="10" port="30419" user="admin" password="" alert="1" coding="330106001" typeid="5">
+      <Channel camera="1" id="330106100008201" num="1" title="通道1" type="0" />
+      <Alarm alertgrade="1" alerttype="1" num="1" title="报警输入1" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="1" desc="" id="3301061000089" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1$9002:1$9004:1$9007:1" title="3G船舶视频监控30523" type="device.type.AutoRegister" alertout="10" port="30523" user="admin" password="" alert="1" coding="330106001" typeid="5">
+      <Channel camera="1" id="330106100008901" num="1" title="通道1" type="0" />
+      <Alarm alertgrade="1" alerttype="1" num="1" title="报警输入1" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="3" desc="" id="3301061000099" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1,2,3$9002:1,2,3$9004:1,2,3" title="3路视频-珠海赛比特" type="device.type.AutoRegister" alertout="10" port="30701" user="admin" password="" alert="0" coding="330106001" typeid="5">
+      <Channel camera="1" id="330106100009901" num="1" title="通道1" type="0" />
+      <Channel camera="1" id="330106100009902" num="2" title="通道2" type="0" />
+      <Channel camera="1" id="330106100009903" num="3" title="通道3" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+    <Device channel="2" desc="" id="3301061000137" ip="220.250.1.142" manufacturer="0" model="" rights="9001:1,2$9002:1,2$9004:1,2" title="欣隆阁-30530" type="device.type.AutoRegister" alertout="10" port="30530" user="admin" password="" alert="0" coding="330106001" typeid="5">
+      <Channel camera="1" id="330106100013701" num="1" title="通道1" type="0" />
+      <Channel camera="1" id="330106100013702" num="2" title="通道2" type="0" />
+      <Alarmout alertdev="1" alerttype="1" num="1" title="A" />
+      <Alarmout alertdev="1" alerttype="1" num="2" title="B" />
+      <Alarmout alertdev="1" alerttype="1" num="3" title="C" />
+      <Alarmout alertdev="1" alerttype="1" num="4" title="D" />
+      <Alarmout alertdev="1" alerttype="1" num="5" title="E" />
+      <Alarmout alertdev="1" alerttype="1" num="6" title="F" />
+      <Alarmout alertdev="1" alerttype="1" num="7" title="G" />
+      <Alarmout alertdev="1" alerttype="1" num="8" title="H" />
+      <Alarmout alertdev="1" alerttype="1" num="9" title="I" />
+      <Alarmout alertdev="1" alerttype="1" num="10" title="J" />
+    </Device>
+  </Department>
+</Organization>

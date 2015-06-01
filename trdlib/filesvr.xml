@@ -1,0 +1,5 @@
+<?xml version="1.0" standalone="yes"?>
+<url>
+	<lan>http://220.250.1.142:8080/client/autoUpdate/</lan>
+	<wan>http://220.250.1.142:8080/client/autoUpdate/</wan>
+</url>

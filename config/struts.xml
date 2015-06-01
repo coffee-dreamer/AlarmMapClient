@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.multipart.maxSize" value="204800000" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	
+    <package name="login-default" extends="struts-default">	
+    	<default-interceptor-ref name="basicStack"></default-interceptor-ref>
+		<action name="login" class="com.ec.action.sys.LoginAction">
+			<result name="success">frame-index.jsp</result>
+			<result name="error">login.jsp</result>
+		</action>
+	</package>
+	
+	<!--crud interceptors,其它crud配置文件必须extends crud-default -->
+    <package name="crud-default" extends="json-default">    
+		<interceptors>
+			<interceptor-stack name="crudStack">
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">^filter_.*,dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">^filter_.*,dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="crudStack" />
+		<global-results>
+		   <result name="login">/login.jsp</result>
+		   <result name="error">/error.jsp</result>
+		</global-results>		
+	</package>  	
+		
+	<include file="sys-struts.xml" />
+	<include file="health-struts.xml" />
+	<include file="soacfg-struts.xml" />
+	<include file="sys-cache-struts.xml" />
+	
+</struts>	

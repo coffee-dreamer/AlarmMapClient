@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="sys-cache-package" namespace="/content/sys" extends="crud-default">
+		<default-action-ref name="index" />
+		<action name="monitorCache" class="com.ec.action.sys.MonitorCacheAction">
+			<result name="index">index.jsp</result>
+		</action>
+		<!-- 刷新缓存 refreshCache -->
+		<action name="refreshCache" class="com.ec.action.sys.MonitorCacheAction" method="refreshCache">
+			<result name="done" type="redirectAction">viewCache.action</result>
+			<result name="no">error.jsp</result>
+		</action>
+		<!-- 释放缓存 releaseCache -->
+		<action name="releaseCache" class="com.ec.action.sys.MonitorCacheAction" method="releaseCache">
+			<result name="done" type="json">
+				<param name="root">msg</param>
+			</result>
+		</action>
+		<!-- 清空缓存 clearCache -->
+		<action name="clearCache" class="com.ec.action.sys.MonitorCacheAction" method="clearCache">
+			<result name="done" type="redirectAction">viewCache.action</result>
+		</action>
+		
+		<!-- 查看缓存状况 viewCache/showDetail-->
+		<action name="showDetail" class="com.ec.action.sys.MonitorCacheAction" method="showDetail">
+			<result >show-detail.jsp</result>
+			<result name="no">error.jsp</result>
+		</action>
+		
+		<action name="viewCache" class="com.ec.action.sys.MonitorCacheAction" method="viewCache">
+			<result >view-cache.jsp</result>
+			<result name="no">error.jsp</result>
+		</action>
+		
+		
+	</package>
+
+
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

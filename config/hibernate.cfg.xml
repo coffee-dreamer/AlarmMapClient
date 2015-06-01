@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory name="JkdaSessionFactory">
+        <property name="show_sql">true</property>
+        <property name="jdbc.fetch_size">50</property>
+        <property name="jdbc.batch_size">20</property>
+        <property name="jdbc.use_scrollable_resultset">true</property>
+        <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        
+        <!--  
+        <property name="connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property>
+        -->
+        <property name="connection.url">jdbc:oracle:thin:@172.16.20.170:1521:TZORATES</property>
+        <property name="connection.username">jkda_test</property>
+        <property name="connection.password">jkda_test</property>        
+        <!--
+        <property name="connection.url">jdbc:oracle:thin:@172.16.20.153:1521:tzjkdadb</property>
+        <property name="connection.username">jkda_web</property>
+        <property name="connection.password">admin</property>
+        
+        <property name="connection.url">jdbc:oracle:thin:@10.6.1.45:1521:oraclelg</property>
+        <property name="connection.username">his</property>
+        <property name="connection.password">admin</property>
+        -->
+        
+        <property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.timeout">120</property>
+		<property name="hibernate.c3p0.max_statements">100</property>
+		<property name="hibernate.c3p0.idle_test_period">120</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.validate">true</property>
+		
+        <mapping resource="com/ec/domain/sys/User.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/UserLoginLog.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Org.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Res.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Role.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Role2Res.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/User2Role.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/UserBanres.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/UserManageArea.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Notice.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/NoticeReply.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/NoticeRead.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Address.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Dim.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/JsDimensions.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/JsOutObject.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/JsRealTabname.hbm.xml"/>
+        <mapping resource="com/ec/domain/sys/Sms.hbm.xml"/>
+        
+        <!--
+       	<mapping resource="com/ec/domain/soacfg/CheckUpdate.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/SchDate.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/Dim.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/ReportCatalog.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/ColMap.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/ModelStr.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/CommonDim.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/DrillDimLevelCol.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/ReqStr.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/DrillDim.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/Report.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/MetaDim.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/Indicator.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/SubQuery.hbm.xml" />
+		<mapping resource="com/ec/domain/soacfg/MetaOrderOlap.hbm.xml" />
+		-->
+		<mapping resource="com/ec/domain/health/HomeBaseInfo.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonBaseInfo.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonBaseInfoEx.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildBaseInfo.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildNewbornSfjl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildOneTwoyearSfjl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildRiskInfo.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildRiskSfjl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildThreeyearSfjl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/ChildFeedSf.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/CjgladdPersonInfo.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/CjglPersonSfjl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/HomeVisitDetail.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonHealthEducation.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonMainDrug.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonMainMyjzs.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonMainProblem.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonMainProblemGxy.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonMainProblemTnb.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTempProblem.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjCt.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjFzjc.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjShfs.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjTjjl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjYbzk.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjZqgn.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonTjZytz.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PregCh42tJkjc.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PregChfs.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PregFirstCqsf.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PregNextCqsf.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcExzl.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcGxb.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcGxy.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcMzfb.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcNxg.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcTnb.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlcZhbz.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisCrbrsGxy.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisCrbrsNxg.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisCureDetailTnb.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisCureEffectTnb.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisSoap.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisBqlc.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SlowDisPersonBqlc.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/PersonMainproZy.hbm.xml"/>
+		
+		<mapping resource="com/ec/domain/health/DicHealthProblems.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/DicDiseaseSoapPattern.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/DicHeathEduPattern.hbm.xml"/>
+		
+		<mapping resource="com/ec/domain/health/HealthCheckReg.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/HealthReportReg.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/SelfCareEvaluate.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/VaccinationCard.hbm.xml"/>
+		<mapping resource="com/ec/domain/health/VaccineDic.hbm.xml"/>
+		
+		<mapping resource="com/ec/domain/health/PersonTjSfjl.hbm.xml"/>
+		
+		<mapping resource="com/ec/domain/report/RepWorkload.hbm.xml"/>
+		<mapping resource="com/ec/domain/report/WebRepCfg.hbm.xml"/>
+		<mapping resource="com/ec/domain/report/WebRepLog.hbm.xml"/>
+		<mapping resource="com/ec/domain/sys/SendSms.hbm.xml"/>
+		<mapping resource="com/ec/domain/sys/UserConfig.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

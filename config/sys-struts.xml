@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="sys-package-json" namespace="/content/sys" extends="crud-default">
+		<action name="user" class="com.ec.action.sys.UserAction">		
+			<result name="list" type="json">
+				<!-- 
+				<param name="root">users</param>
+				-->
+				<param name="includeProperties">rows.*,page,total,rows</param>
+				<param name="excludeProperties">rows\[\d+\]\.rootMenu</param>
+				<!-- 
+				<param name="wrapPrefix">{"rows":</param>
+				<param name="wrapSuffix">}</param>
+				-->
+			</result>
+			<result name="orguser" type="json">
+				<param name="includeProperties">rows\[\d+\]\.oprid,rows\[\d+\]\.oprName,rows\[\d+\]\.oprMobile</param>
+			</result>
+			<result name="input">user-input.jsp</result>
+			<result name="roles">user-rolelist.jsp</result>
+		</action>
+		
+		<action name="res" class="com.ec.action.sys.ResAction">		
+			<result name="all" type="json">
+				<param name="root">reses</param>
+			</result>
+			<result name="resfolder" type="json">
+				<param name="includeProperties">reses.*</param>
+			</result>			
+			<result name="input">res-input.jsp</result>
+		</action>
+		
+		<action name="sys" class="com.ec.action.sys.SysAction">		
+			<result name="menulist">sys-admin.jsp</result>
+		</action>
+		
+		<action name="dim" class="com.ec.action.sys.DimAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">dimList.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/sys/dim-list-add.jsp</result>
+			<result name="view">/content/sys/dim-list-add.jsp</result>			
+		</action>
+		
+		<action name="fact" class="com.ec.action.sys.FactAction">		
+			
+		</action>				
+		
+		<action name="role" class="com.ec.action.sys.RoleAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">rows.*</param>
+			</result>
+			<result name="info" type="json">
+				<param name="root">role</param>
+			</result>		
+			<result name="input">role-input.jsp</result>
+			<result name="userlist">role-userlist.jsp</result>
+			<result name="reses">role-reslist.jsp</result>			
+		</action>
+		
+		<action name="user2role" class="com.ec.action.sys.User2RoleAction">
+		
+		</action>
+		
+		<action name="role2res" class="com.ec.action.sys.Role2ResAction">
+		
+		</action>	
+		
+		<action name="notice" class="com.ec.action.sys.NoticeAction">
+			<result name="list">/content/sys/notice-list.jsp</result>
+			<result name="listinfo" type="json">
+				<param name="includeProperties">notices.*,page,total,rows</param>
+			</result>
+			<result name="info" type="json">
+				<param name="root">nt</param>
+			</result>
+			<result name="add">/content/sys/notice-input.jsp</result>
+			<result name="view">/content/sys/notice-input.jsp</result>
+			<result name="downLoadFile" type="stream">
+	   	    	<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">fis</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">102400</param>
+	   	    </result>
+	   	    <result name="downLoadFileError">/content/sys/notice-downLoadFileError.jsp</result>			
+		</action>	
+		
+		<action name="sms" class="com.ec.action.sys.SmsAction">
+			<result name="list">/content/sys/sms-center.jsp</result>
+			<result name="add">/content/sys/sms-input.jsp</result>
+			<result name="view">/content/sys/sms-input.jsp</result>	
+			<result name="smsinfo">/content/sys/sms-info.jsp</result>
+			<result name="getSms" type="json">
+				<param name="root">entity</param>
+			</result>
+		</action>			
+		
+		<action name="noticereply" class="com.ec.action.sys.NoticeReplyAction">
+			<result name="list" type="json">
+				<param name="includeProperties">noticeReplies.*</param>
+			</result>		
+		</action>		
+		
+		<action name="userlog" class="com.ec.action.sys.UserLoginLogAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">userlog.*,page,total,rows</param>
+			</result>	
+			<result name="info" type="json">
+				<param name="root">log</param>
+			</result>			
+		</action>	
+		
+		<action name="addr" class="com.ec.action.sys.AddressAction">		
+			<result name="list" type="json">
+				<param name="root">addList</param>
+			</result>	
+			<result name="addrfolder" type="json">
+				<param name="includeProperties">addList.*</param>
+			</result>			
+			<result name="input">address-input.jsp</result>			
+		</action>
+		
+		<action name="org" class="com.ec.action.sys.OrgAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">orgList.*,page,total,rows</param>
+			</result>
+			<result name="info" type="json">
+				<param name="root">jggl</param>
+			</result>
+			<result name="add">/content/sys/org-list-add.jsp</result>
+			<result name="view">/content/sys/org-list-add.jsp</result>				
+		</action>	
+		
+		<action name="js" class="com.ec.action.sys.JsDimensionsAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">jds.*,page,total,rows</param>
+			</result>
+			<result name="add">/content/sys/jsdim-list-add.jsp</result>
+			<result name="view">/content/sys/jsdim-list-add.jsp</result>				
+		</action>
+		
+		<action name="rep" class="com.ec.action.sys.RepAction">	
+		
+		</action>		
+		
+		<action name="userinfo" class="com.ec.action.sys.UserAction">		
+			<result name="input">/content/sys/user-info.jsp</result>			
+		</action>
+		
+		<action name="userUP" class="com.ec.action.sys.UserinfoAction">		
+			<result name="list" type="json">
+				<param name="includeProperties">users.*,page,total,rows</param>
+			</result>		
+		</action>
+		
+			<action name="repWorkload" class="com.ec.action.report.RepWorkloadAction">	
+		    <result name="list" type="json">
+				<param name="includeProperties">repList.*,page,total,rows</param>
+			</result>
+		</action>	
+		
+		<action name="WEBREP" class="com.ec.action.report.WebRepLogAction">	
+		    <result name="list" type="json">
+				<param name="includeProperties">loglist.*,page,total,rows</param>
+			</result>
+		</action>
+		
+		<action name="userconfig" class="com.ec.action.sys.UserConfigAction">		
+					
+		</action>		
+	</package>
+</struts>
