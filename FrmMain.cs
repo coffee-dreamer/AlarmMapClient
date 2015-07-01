@@ -86,6 +86,7 @@ namespace AlarmMapClient
         public FrmMain(string xml, string username, string passwd,string oprname)
         {
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
             string title = ConfigurationManager.AppSettings["MainTitle"].ToString();
             this.Text = title;
 
@@ -166,7 +167,8 @@ namespace AlarmMapClient
                 if (isOpenAlarmVideo) startCheckAlarmVideoTimer();
 
                 //启动定时器,检查透明串口数据
-                //if (isAutoLoadNodeStatus) startCheckNodeTimer();
+                if (isAutoLoadNodeStatus) startCheckNodeTimer();
+                isAutoLoadNodeStatus = false;
 
                 //绑定透明串口回调(使用转发SDK时接收消息时启用)
                 if (isListenCOM) setCallBackOpenTransport();
@@ -232,7 +234,7 @@ namespace AlarmMapClient
             isStopNodeTimer = false;
 
             node_timer = new System.Timers.Timer();
-            node_timer.Interval = 1000 * 60;
+            node_timer.Interval = 1000 * 60 * 2;
             node_timer.AutoReset = true;
             node_timer.Enabled = true;
             node_timer.Elapsed += trans_timer_Elapsed;
@@ -244,11 +246,12 @@ namespace AlarmMapClient
         void trans_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (isRunningTransTimer) return;
-
+            cmd.ShowOpaqueLayer(this.tree_devices, 125, true);
             isInDeviceOpr = false;
             isRunningTransTimer = true;
             checkNodeStateAll();
             isRunningTransTimer = false;
+            cmd.HideOpaqueLayer();
         }
         private void checkNodeStateAll(){
             try
@@ -492,6 +495,8 @@ namespace AlarmMapClient
 
                 int wireChannelId;
                 int wirelessChannelId;
+                //获取设备信息
+                Device d = MDSUtils.GetDeviceInfo(devStr);
 
                 switch (command)
                 {
@@ -549,7 +554,7 @@ namespace AlarmMapClient
                             sectorLog.port = 0;
                             sectorLog.sn = devStr;
                             sectorLog.usr = "";
-                            sectorLog.remark = "遥控布防";
+                            sectorLog.remark = d.DeviceName + "|" + "遥控布防";
                             MDSUtils.SaveSectorLog(sectorLog);
                             saveBcfLocalLog(sectorLog, devStr);
                             break;
@@ -558,7 +563,7 @@ namespace AlarmMapClient
                         {
                             //全部撤防66
                             setNodeIcon(this.treeRootNode, devStr, 42);
-
+                            
                             SectorLog sectorLog = new SectorLog();
                             string strHostName = Dns.GetHostName();  //得到本机的主机名
                             IPHostEntry ipEntry = Dns.GetHostByName(strHostName); //取得本机IP
@@ -568,7 +573,7 @@ namespace AlarmMapClient
                             sectorLog.port = 0;
                             sectorLog.sn = devStr;
                             sectorLog.usr = "";
-                            sectorLog.remark = "遥控撤防";
+                            sectorLog.remark = d.DeviceName + "|" + "遥控撤防";
                             MDSUtils.SaveSectorLog(sectorLog);
                             saveBcfLocalLog(sectorLog,devStr);
                             break;
@@ -920,7 +925,7 @@ namespace AlarmMapClient
                     }
                     catch (Exception ee)
                     {
-                        
+                        MessageBox.Show(ee.Message, "异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 //根据id获取相关信息
@@ -1641,22 +1646,26 @@ namespace AlarmMapClient
                     df.LogOut();
                     if (errNum > 0)
                     {
-                        MessageBox.Show("设备的所有视频通道移动侦测不启用,所有报警通道启用,部分异常!", "二级布防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //MessageBox.Show("设备的所有视频通道移动侦测不启用,所有报警通道启用,部分异常!", "二级布防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("出现异常!", "布防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         //sector log
-                        sectorLog.remark = "二级布防:设备的所有视频通道移动侦测不启用,所有报警通道启用,部分异常!";
+                        //sectorLog.remark = "二级布防:设备的所有视频通道移动侦测不启用,所有报警通道启用,部分异常!";
+                        sectorLog.remark = node.Text + "布防出现异常!";
                     }
                     else
                     {
-                        MessageBox.Show("设备的所有视频通道移动侦测不启用,所有报警通道启用,报警器启用", "二级布防", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("设备的所有视频通道移动侦测不启用,所有报警通道启用,报警器启用", "二级布防", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("布防成功!", "布防", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //sector log
-                        sectorLog.remark = "二级布防:设备的所有视频通道移动侦测不启用,所有报警通道启用,报警器启用";
+                        //sectorLog.remark = "二级布防:设备的所有视频通道移动侦测不启用,所有报警通道启用,报警器启用";
+                        sectorLog.remark = node.Text + "布防成功";
                     }
                 }
                 else
                 {
-                    MessageBox.Show("设备登录异常", "二级布防", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("设备登录异常", "布防", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //sector log
-                    sectorLog.remark = "二级布防:设备登录异常";
+                    sectorLog.remark = node.Text + "布防:设备登录异常";
                 }
 
                 MDSUtils.SaveSectorLog(sectorLog);
@@ -1754,22 +1763,26 @@ namespace AlarmMapClient
 
                     if (errNum > 0)
                     {
-                        MessageBox.Show("所有视频通道的移动侦测,报警输入通道关闭,部分异常!", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //MessageBox.Show("所有视频通道的移动侦测,报警输入通道关闭,部分异常!", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("撤防异常!", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         //sector log
-                        sectorLog.remark = "撤防:所有视频通道的移动侦测,报警输入通道关闭,部分异常!";
+                        //sectorLog.remark = "撤防:所有视频通道的移动侦测,报警输入通道关闭,部分异常!";
+                        sectorLog.remark = node.Text + "撤防异常!";
                     }
                     else
                     {
-                        MessageBox.Show("所有视频通道的移动侦测,报警输入通道关闭,报警器撤防", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("所有视频通道的移动侦测,报警输入通道关闭,报警器撤防", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("撤防成功!", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //sector log
-                        sectorLog.remark = "撤防:所有视频通道的移动侦测,报警输入通道关闭,报警器撤防";
+                        //sectorLog.remark = "撤防:所有视频通道的移动侦测,报警输入通道关闭,报警器撤防";
+                        sectorLog.remark = node.Text + "撤防成功!";
                     }
                 }
                 else
                 {
                     MessageBox.Show("设备登录异常", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //sector log
-                    sectorLog.remark = "撤防:设备登录异常";
+                    sectorLog.remark = node.Text + "撤防:设备登录异常";
                 }
 
                 MDSUtils.SaveSectorLog(sectorLog);
@@ -1801,8 +1814,8 @@ namespace AlarmMapClient
             cmd.HideOpaqueLayer();
 
             //通道移动侦测状态查询
-            //Thread t = new Thread(new ThreadStart(this.LoadChannelMotionTreeThread));
-            //t.Start();
+            Thread t = new Thread(new ThreadStart(this.LoadChannelMotionTreeThread));
+            t.Start();
         }
 
         private void UpdateChannelTreeUI()
@@ -1824,7 +1837,7 @@ namespace AlarmMapClient
                         if (q != null && q.Count >= 1)
                         {
                             cs = q[0];
-
+                            
                             if (cs.Status > 0)
                             {
                                 if (cs.Enable)
@@ -1863,7 +1876,8 @@ namespace AlarmMapClient
                     if (node.Tag is DDevice)
                     {
                         DDevice dev = (DDevice)node.Tag;
-                        if (dev == null || !(node.ImageIndex==4||node.SelectedImageIndex==4))//offline
+                        //if (dev == null || !(node.ImageIndex==4||node.SelectedImageIndex==4))//offline
+                        if (dev == null)
                             continue;
 
                         Device dev2 = MDSUtils.GetDeviceInfo(dev.Id);
@@ -1882,7 +1896,6 @@ namespace AlarmMapClient
                             cs.ChannelId = ch.Id;
                             cs.Status = bsuccess;
                             cs.Enable = df.motionCfg.bEnable>0?true:false;
-
                             channelStatusList.Add(cs); 
 
                         }
@@ -1903,6 +1916,9 @@ namespace AlarmMapClient
 
         private void LoadXmlTree(TreeNode rootnode,string xml)
         {
+            //Console.WriteLine("______________________________");
+            //Console.WriteLine(xml);
+            //Console.WriteLine("______________________________");
             DateTime time_s, time_e;
             time_s = DateTime.Now;
             try
@@ -2091,6 +2107,9 @@ namespace AlarmMapClient
                 int wireChannelId;
                 int wirelessChannelId;
                 log.Error("透明串口消息 szDeviceID=" + szDeviceID + " command=" + command);
+
+                //获取设备信息
+                Device d = MDSUtils.GetDeviceInfo(szDeviceID);
                 switch (command)
                 {
                     case 0X41://遥控布防
@@ -2107,7 +2126,7 @@ namespace AlarmMapClient
                             sectorLog.port = 0;
                             sectorLog.sn = szDeviceID;
                             sectorLog.usr = "";
-                            sectorLog.remark = "遥控布防";
+                            sectorLog.remark = d.DeviceName + "|" + "遥控布防";
                             MDSUtils.SaveSectorLog(sectorLog);
                             saveBcfLocalLog(sectorLog, szDeviceID);
                             break;
@@ -2126,7 +2145,7 @@ namespace AlarmMapClient
                             sectorLog.port = 0;
                             sectorLog.sn = szDeviceID;
                             sectorLog.usr = "";
-                            sectorLog.remark = "遥控撤防";
+                            sectorLog.remark = d.DeviceName + "|" + "遥控撤防";
                             MDSUtils.SaveSectorLog(sectorLog);
                             saveBcfLocalLog(sectorLog, szDeviceID);
                             break;
@@ -2227,13 +2246,15 @@ namespace AlarmMapClient
                 amsg.MapPic = d.MapPic == null ? "" : d.MapPic;
             }
 
-            shareData.addMsg(amsg);
+            
+                shareData.addMsg(amsg);
 
-            //本地入库
-            AlarmLogBll.Save(amsg);
+                //本地入库
+                AlarmLogBll.Save(amsg);
+                //显示
+                this.LoginFrm.UIMsgShow();
 
-            //显示
-            this.LoginFrm.UIMsgShow();
+            
         }
 
         private void tree_devices_Leave(object sender, EventArgs e)
@@ -2273,6 +2294,7 @@ namespace AlarmMapClient
             {
                 menu.Text = "禁止刷新设备状态";
                 this.isStopNodeTimer = false;
+                this.node_timer.Interval = 1000 * 60 * 3;
                 this.node_timer.Start();
             }
             else
@@ -2287,16 +2309,27 @@ namespace AlarmMapClient
 
         private void ToolStripMenuItem_RefreshBCF_Click(object sender, EventArgs e)
         {
-            if (isloadbcf) return;
+            //if (isloadbcf) return;
 
-            foreach (TreeNode node in this.tree_devices.Nodes)
-            {
-                foreach (TreeNode cnode in node.Nodes)
-                {
-                    log.Error("FreshNode-" + cnode.Text);
-                    FreshNode(cnode, true);
-                }
-            }
+            //foreach (TreeNode node in this.tree_devices.Nodes)
+            //{
+            //    foreach (TreeNode cnode in node.Nodes)
+            //    {
+            //        log.Error("FreshNode-" + cnode.Text);
+            //        FreshNode(cnode, true);
+            //    }
+            //}
+
+            this.isAutoLoadNodeStatus = false;
+            this.isStopNodeTimer = true;
+            this.ToolStripMenuItem_AutoLoadDeviceStatus.Enabled = false;
+            if (isRunningTransTimer) return;
+
+            isInDeviceOpr = false;
+            isRunningTransTimer = true;
+            checkNodeStateAll();
+            isRunningTransTimer = false;
+            this.ToolStripMenuItem_AutoLoadDeviceStatus.Enabled = true;
         }
 
         private void saveBcfLocalLog(SectorLog log, string szDeviceID)

@@ -44,6 +44,7 @@ namespace AlarmMapClient
         private List<String> onlineDevices;
         private List<String> uplineDevices;
         private List<String> downlineDevices;
+        private int isOnlineOrOffline = 0;
 
         public FrmLogin()
         {
@@ -138,9 +139,12 @@ namespace AlarmMapClient
                         //frmMain.closeTransport(szDeviceID);
                         frmMain.FreshDeviceStatus(szDeviceID, false);
                     }
-
+                    this.isOnlineOrOffline = 0;
                     if (initNum <= 0)
                     {
+                        //获取设备信息
+                        Device d = MDSUtils.GetDeviceInfo(szDeviceID);
+
                         SectorLog sectorLog = new SectorLog();
                         string strHostName = Dns.GetHostName();  //得到本机的主机名
                         IPHostEntry ipEntry = Dns.GetHostByName(strHostName); //取得本机IP
@@ -150,7 +154,8 @@ namespace AlarmMapClient
                         sectorLog.port = 0;
                         sectorLog.sn = szDeviceID;
                         sectorLog.usr = "";
-                        sectorLog.remark = (isup ? "设备上线" : "设备下线");
+                        this.isOnlineOrOffline = isup ? 1 : 2;
+                        sectorLog.remark = (isup ? d.DeviceName + "|" + "设备上线" : d.DeviceName + "|" + "设备下线");
                         MDSUtils.SaveSectorLog(sectorLog);
 
                         //同时存入本地DB用于显示
@@ -167,16 +172,15 @@ namespace AlarmMapClient
                         amsg.IsViewed = false;
                         amsg.alarmTxt = sectorLog.remark;
                         amsg.ChannelName = sectorLog.remark;
-                        //获取设备信息
-                        Device d = MDSUtils.GetDeviceInfo(szDeviceID);
+                        
                         amsg.UserName = d.TrueName == null ? "" : d.TrueName;
                         amsg.Tel = d.Tel == null ? "" : d.Tel;
                         amsg.Address = d.Address == null ? "" : d.Address;
                         AlarmLogBll.Save(amsg);
-                    }
-                    //调用报警检查,通道UI线程更新,并由其同时调用JS函数进行地图展示
-                    UIMsgShow();
 
+                        //调用报警检查,通道UI线程更新,并由其同时调用JS函数进行地图展示
+                        UIMsgShow();
+                    }
                 }
                 
             }
@@ -322,7 +326,7 @@ namespace AlarmMapClient
                         int rlen = TransSDK.P_Client_GetDevices(pBuffer, dlen + 1);
                         string xml = Encoding.Default.GetString(pBuffer);
                         //MessageBox.Show("实际设备数据长度：" + rlen + "\r\n" + xml);
-
+                        log.Debug(xml);
                         this.Hide();
                         this.Opacity = 0.0f;
                         this.ShowInTaskbar = false;
@@ -502,12 +506,13 @@ namespace AlarmMapClient
                     amsg.AlarmTime = DateTime.Now;
                     amsg.IsViewed = false;
                     amsg.alarmTxt = "联动防区";
+                    bool isYidongZhence = false;
                     switch (enumType)
                     {
                         case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_Unknown:amsg.alarmTxt = "联动防区(未知)";break;
                         case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_VIDEO_LOST:amsg.alarmTxt = "联动防区(视频丢失)";break;
                         case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_EXTERNAL_ALARM:amsg.alarmTxt = "联动防区(外部报警)";break;
-                        case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_MOTION_DETECT:amsg.alarmTxt = "联动防区(移动侦测)";break;
+                        case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_MOTION_DETECT:amsg.alarmTxt = "联动防区(移动侦测)"; isYidongZhence = true;break;
                         case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_VIDEO_SHELTER:amsg.alarmTxt = "联动防区(视频遮挡)";break;
                         case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_DISK_FULL:amsg.alarmTxt = "联动防区(硬盘满)";break;
                         case TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_DISK_FAULT:amsg.alarmTxt = "联动防区(硬盘故障)";break;
@@ -516,56 +521,60 @@ namespace AlarmMapClient
                     }
                     //从HTTP网络获取相关信息合并,增强ams信息量
 
-                    Channel c = null;
-                    Device d = null;
-                    Alert a = null;
+                    if(!isYidongZhence){
+                        Channel c = null;
+                        Device d = null;
+                        Alert a = null;
 
-                    //如果外部报警取报警通道名称，共它取摄像头名称
-                    c = MDSUtils.GetChannelInfo(channelId);
-                    d = MDSUtils.GetDeviceInfo(szDeviceID);
-                    if (enumType == TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_EXTERNAL_ALARM)
-                    {
-                        string alertId="";
-                        if (channel < 10) alertId = szDeviceID + "00" + channel;
-                        else if (channel < 100 && channel >= 10) alertId = szDeviceID + "0" + channel;
-                        else alertId = szDeviceID + channel;
+                        //如果外部报警取报警通道名称，共它取摄像头名称
+                        c = MDSUtils.GetChannelInfo(channelId);
+                        d = MDSUtils.GetDeviceInfo(szDeviceID);
+                        if (enumType == TransSDK.enum_P_Client_AlarmMsg.enum_P_Client_ALARM_EXTERNAL_ALARM)
+                        {
+                            string alertId = "";
+                            if (channel < 10) alertId = szDeviceID + "00" + channel;
+                            else if (channel < 100 && channel >= 10) alertId = szDeviceID + "0" + channel;
+                            else alertId = szDeviceID + channel;
 
-                        a = MDSUtils.GetAlertById(alertId);
+                            a = MDSUtils.GetAlertById(alertId);
+                        }
+                        if (c != null)
+                        {
+                            amsg.Latitude = d.Latitude;
+                            amsg.Longitude = d.Longitude;
+                            amsg.Latitude2 = c.Latitude;
+                            amsg.Longitude2 = c.Longitude;
+                            //获取设备信息
+                            Device dev = MDSUtils.GetDeviceInfo(szDeviceID);
+
+                            amsg.UserName = d.TrueName == null ? "" : d.TrueName;
+                            amsg.Tel = d.Tel == null ? "" : d.Tel;
+                            amsg.Address = d.Address == null ? "" : d.Address;
+                            if (a == null)
+                                amsg.ChannelName = amsg.alarmTxt + "|" + dev.DeviceName + "->" + c.ChannelName;
+                            else
+                                amsg.ChannelName = amsg.alarmTxt + "|" + dev.DeviceName + "->" + a.AlertName;
+                            amsg.MapPic = d.MapPic == null ? "" : d.MapPic;
+
+                            dev = null;
+                            c = null;
+                            d = null;
+                        }
+
+                        if (!isold)//新通道报警则播放队列
+                        {
+                            shareData.addMsg(amsg);
+                        }
+
+
+                        //本地入库
+                        AlarmLogBll.Save(amsg);
+
+                        //调用报警检查,通道UI线程更新,并由其同时调用JS函数进行地图展示
+                        this.isOnlineOrOffline = 0;
+                        UIMsgShow();
                     }
-                    if (c != null)
-                    {
-                        amsg.Latitude = d.Latitude;
-                        amsg.Longitude = d.Longitude;
-                        amsg.Latitude2 = c.Latitude;
-                        amsg.Longitude2 = c.Longitude;
-                        //获取设备信息
-                        Device dev = MDSUtils.GetDeviceInfo(szDeviceID);
-
-                        amsg.UserName = d.TrueName == null ? "" : d.TrueName;
-                        amsg.Tel = d.Tel == null ? "" : d.Tel;
-                        amsg.Address = d.Address == null ? "" : d.Address;
-                        if(a==null)
-                            amsg.ChannelName = amsg.alarmTxt+"|"+dev.DeviceName + "->" + c.ChannelName;
-                        else
-                            amsg.ChannelName = amsg.alarmTxt + "|" + dev.DeviceName + "->" + a.AlertName;
-                        amsg.MapPic = d.MapPic == null ? "" : d.MapPic;
-
-                        dev = null;
-                        c = null;
-                        d = null;
-                    }
-
-                    if (!isold)//新通道报警则播放队列
-                    {
-                        shareData.addMsg(amsg);
-                    }
-
                     
-                    //本地入库
-                    AlarmLogBll.Save(amsg);
-
-                    //调用报警检查,通道UI线程更新,并由其同时调用JS函数进行地图展示
-                    UIMsgShow();
                 }
 
             }
@@ -596,9 +605,18 @@ namespace AlarmMapClient
             //assembly = Assembly.GetExecutingAssembly();
             
             SoundPlayer sp;
-            sp = new SoundPlayer(Properties.Resources.ALARM8);
-            sp.Play();
+            if(this.isOnlineOrOffline == 1){
+                sp = new SoundPlayer(Properties.Resources.online);
+            }
+            else if (this.isOnlineOrOffline == 2)
+            {
+                sp = new SoundPlayer(Properties.Resources.offline);
+            }
+            else {
+                sp = new SoundPlayer(Properties.Resources.ALARM8);
+            }
             
+            sp.Play();
             lock (lockThis)
             {
                 if (frmMain != null && frmMain.isWebLoaded)//&& frmMain.isAlarmExe == false

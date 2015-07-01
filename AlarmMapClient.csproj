@@ -245,7 +245,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DeviceF2.cs" />
-    <EmbeddedResource Include="Domain\Mapping\AlarmLog.hbm.xml" />
+    <EmbeddedResource Include="Domain\Mapping\AlarmLog.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBattery.resx">
       <DependentUpon>FrmBattery.cs</DependentUpon>
     </EmbeddedResource>
@@ -290,7 +292,22 @@
     <Content Include="Remotion.Data.Linq.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="res\camera_16.ico" />
+    <Content Include="res\camera_24.png" />
+    <Content Include="res\channel_cf.png" />
+    <Content Include="res\channel_off.png" />
+    <Content Include="res\channel_on.png" />
+    <Content Include="res\db_24.png" />
+    <Content Include="res\device.xml" />
+    <Content Include="res\d_24.png" />
+    <Content Include="res\lamp_off_24.png" />
+    <Content Include="res\lamp_on_24.png" />
     <Content Include="res\loading.gif" />
+    <Content Include="res\no_24.png" />
+    <None Include="res\offline.wav" />
+    <Content Include="res\ok_24.png" />
+    <None Include="res\online.wav" />
+    <Content Include="res\select.jpg" />
     <Content Include="SQLite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -310,12 +327,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPlayer.resx">
       <DependentUpon>FrmPlayer.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSecMap.resx">
       <DependentUpon>FrmSecMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSubMapShow.resx">
       <DependentUpon>FrmSubMapShow.cs</DependentUpon>
