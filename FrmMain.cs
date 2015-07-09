@@ -168,10 +168,10 @@ namespace AlarmMapClient
 
                 //启动定时器,检查透明串口数据
                 if (isAutoLoadNodeStatus) startCheckNodeTimer();
-                isAutoLoadNodeStatus = false;
+                //isAutoLoadNodeStatus = false;
 
                 //绑定透明串口回调(使用转发SDK时接收消息时启用)
-                if (isListenCOM) setCallBackOpenTransport();
+                openAllTransport();
             }
             catch (Exception ex)
             {
@@ -272,7 +272,7 @@ namespace AlarmMapClient
                 log.Error(ex.ToString());
             }
         }
-        private void sendTransportData(DDevice dev)
+        private int sendTransportData(DDevice dev)
         {
             int ret = 0;
             try
@@ -287,13 +287,14 @@ namespace AlarmMapClient
                 log.Error("write transportdata dev=" + dev.Id+",ret="+ret);
 
                 System.Runtime.InteropServices.Marshal.FreeHGlobal(hglobal);
-
                 data = null;
             }
             catch (Exception e)
             {
                 log.Error(e.ToString());
             }
+
+            return ret;
         }
         private void checkNodeState(TreeNode node)
         {
@@ -333,10 +334,19 @@ namespace AlarmMapClient
                     cnode.ImageIndex = 6;
                     if (d != null)
                     {
-                        if (d.Status == 1)//online
+                        if (d.Status == 1)
+                        {//online
                             cnode.ImageIndex = 4;
+
+                            //searchDevStatus(d.DeviceID);
+                            //SearchTransStatus(d);
+                            //SearchTransStatus_NETSDK(d,false);
+                            sendTransportData(dev);
+                        }
                         else
+                        {
                             cnode.ImageIndex = 5;
+                        }
                     }
                 }
             } 
@@ -352,10 +362,18 @@ namespace AlarmMapClient
                 if (d != null)//&& d.Longitude != 0 && d.Latitude != 0
                 {
                     //node.ImageIndex = 1;
-                    if (d.Status == 1)//online
+                    if (d.Status == 1)
+                    {//online
                         node.ImageIndex = 4;
-                    else
+
+                        //SearchTransStatus(d);
+                        //searchDevStatus(d.DeviceID);
+                        //SearchTransStatus_NETSDK(d, false);
+                        sendTransportData(dev);
+                    }
+                    else{
                         node.ImageIndex = 5;
+                    }
                 }
                 //else
                 //{
@@ -391,12 +409,13 @@ namespace AlarmMapClient
             else if (node.Tag is DChannel){
             }
         }
+
         private bool searchFqStatus(int lhwd,string deviceId)
         {
-            log.Error("查询单片机状态：" + deviceId);
+            log.Info("查询单片机状态：" + deviceId);
             //if (!openTransportRs232_NETSDK(lhwd,deviceId)) return false;
 
-            int nBufLen = 5;
+            int nBufLen = 6;
 
             byte[] data = new byte[] { 0xFF, 0x55, 0x01, 0x00, 0x01 };
 
@@ -658,8 +677,8 @@ namespace AlarmMapClient
                 //暂时不走转发，转发接收不到串口数据
                 if (this.isListenCOM)
                 {
-                    //Thread t2 = new Thread(new ThreadStart(this.openAllTransport));
-                    //t2.Start();
+                    Thread t2 = new Thread(new ThreadStart(this.openAllTransport));
+                    t2.Start();
                 }
             }
 
@@ -1650,7 +1669,7 @@ namespace AlarmMapClient
                         MessageBox.Show("出现异常!", "布防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         //sector log
                         //sectorLog.remark = "二级布防:设备的所有视频通道移动侦测不启用,所有报警通道启用,部分异常!";
-                        sectorLog.remark = node.Text + "布防出现异常!";
+                        sectorLog.remark = node.Text + "|" + "布防出现异常!";
                     }
                     else
                     {
@@ -1658,14 +1677,14 @@ namespace AlarmMapClient
                         MessageBox.Show("布防成功!", "布防", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //sector log
                         //sectorLog.remark = "二级布防:设备的所有视频通道移动侦测不启用,所有报警通道启用,报警器启用";
-                        sectorLog.remark = node.Text + "布防成功";
+                        sectorLog.remark = node.Text + "|" + "布防成功";
                     }
                 }
                 else
                 {
                     MessageBox.Show("设备登录异常", "布防", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //sector log
-                    sectorLog.remark = node.Text + "布防:设备登录异常";
+                    sectorLog.remark = node.Text + "|" + "布防:设备登录异常";
                 }
 
                 MDSUtils.SaveSectorLog(sectorLog);
@@ -1767,7 +1786,7 @@ namespace AlarmMapClient
                         MessageBox.Show("撤防异常!", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         //sector log
                         //sectorLog.remark = "撤防:所有视频通道的移动侦测,报警输入通道关闭,部分异常!";
-                        sectorLog.remark = node.Text + "撤防异常!";
+                        sectorLog.remark = node.Text + "|" + "撤防异常!";
                     }
                     else
                     {
@@ -1775,14 +1794,14 @@ namespace AlarmMapClient
                         MessageBox.Show("撤防成功!", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         //sector log
                         //sectorLog.remark = "撤防:所有视频通道的移动侦测,报警输入通道关闭,报警器撤防";
-                        sectorLog.remark = node.Text + "撤防成功!";
+                        sectorLog.remark = node.Text + "|" + "撤防成功!";
                     }
                 }
                 else
                 {
                     MessageBox.Show("设备登录异常", "撤防", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     //sector log
-                    sectorLog.remark = node.Text + "撤防:设备登录异常";
+                    sectorLog.remark = node.Text + "|" + "撤防:设备登录异常";
                 }
 
                 MDSUtils.SaveSectorLog(sectorLog);
@@ -1916,9 +1935,6 @@ namespace AlarmMapClient
 
         private void LoadXmlTree(TreeNode rootnode,string xml)
         {
-            //Console.WriteLine("______________________________");
-            //Console.WriteLine(xml);
-            //Console.WriteLine("______________________________");
             DateTime time_s, time_e;
             time_s = DateTime.Now;
             try
@@ -2026,18 +2042,15 @@ namespace AlarmMapClient
             int nBufLen = 6;
 
             byte[] data = new byte[] { 0xFF, 0x55, 0x01, 0x00, 0x01 };
-
             GCHandle hObject = GCHandle.Alloc(data, GCHandleType.Pinned);
             IntPtr pObject = hObject.AddrOfPinnedObject();
-
             int ret= TransSDK.P_Client_WriteTransportData(szDeviceID, 0, pObject, nBufLen);
-
 
             //if (hObject.IsAllocated)
 
             hObject.Free();
             data = null;
-
+            
             return ret;
         }
         public int openTransportRs232(string szDeviceID)
@@ -2059,7 +2072,6 @@ namespace AlarmMapClient
                {
                    log.Error("P_Client_OpenTransport szDeviceID=" + szDeviceID + ",error=" + ret);
                    //设置icon为没用侦听状态,同时可加入右键菜单开启侦听
-
                }
                else
                {
@@ -2094,7 +2106,7 @@ namespace AlarmMapClient
             byte[] data = new byte[dwBufSize + 1];
             try
             {
-                
+
                 Marshal.Copy(pBuffer, data, 0, (int)dwBufSize);
                 //for (int i = 0; i < dwBufSize; i++)
                 //{
@@ -2106,7 +2118,7 @@ namespace AlarmMapClient
 
                 int wireChannelId;
                 int wirelessChannelId;
-                log.Error("透明串口消息 szDeviceID=" + szDeviceID + " command=" + command);
+                log.Info("透明串口消息 szDeviceID=" + szDeviceID + " command=" + command);
 
                 //获取设备信息
                 Device d = MDSUtils.GetDeviceInfo(szDeviceID);
@@ -2152,7 +2164,7 @@ namespace AlarmMapClient
                         }
                     case 0X43://有线线防区报警
                         {
-                            wireChannelId = data[3 + 1]-1;
+                            wireChannelId = data[3 + 1] - 1;
                             saveMsgLocalDb(szDeviceID, wireChannelId, "有线防区");
                             break;
                         }
@@ -2166,7 +2178,7 @@ namespace AlarmMapClient
                     case 0X81://0X01 读取系统状态 回复
                         {
                             int sysStatus = data[3 + 1];//1 布防 0 撤防
-                            if(sysStatus==1)
+                            if (sysStatus > 0)
                                 setNodeIcon(this.treeRootNode, szDeviceID, 41);
                             else
                                 setNodeIcon(this.treeRootNode, szDeviceID, 42);
@@ -2176,8 +2188,12 @@ namespace AlarmMapClient
                     default: break;
                 }
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 log.Error(ex.ToString());
+            }
+            finally {
+                
             }
 
             data = null;
@@ -2189,6 +2205,7 @@ namespace AlarmMapClient
                 if (node.Tag is DDevice)
                 {
                     DDevice dev = (DDevice)node.Tag;
+                    
                     if (dev != null && dev.Id.Equals(szDeviceID))
                     {
                         if (type == 41)//布防
@@ -2244,17 +2261,15 @@ namespace AlarmMapClient
                 amsg.Address = d.Address == null ? "" : d.Address;
                 amsg.ChannelName = amsg.alarmTxt + "|" + dev==null?szDeviceID:dev.DeviceName + "->" + c.ChannelName;
                 amsg.MapPic = d.MapPic == null ? "" : d.MapPic;
-            }
 
-            
+
                 shareData.addMsg(amsg);
 
                 //本地入库
                 AlarmLogBll.Save(amsg);
                 //显示
                 this.LoginFrm.UIMsgShow();
-
-            
+            } 
         }
 
         private void tree_devices_Leave(object sender, EventArgs e)

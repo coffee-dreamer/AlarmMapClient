@@ -176,10 +176,10 @@ namespace AlarmMapClient
                         amsg.UserName = d.TrueName == null ? "" : d.TrueName;
                         amsg.Tel = d.Tel == null ? "" : d.Tel;
                         amsg.Address = d.Address == null ? "" : d.Address;
-                        AlarmLogBll.Save(amsg);
+                        //AlarmLogBll.Save(amsg);
 
                         //调用报警检查,通道UI线程更新,并由其同时调用JS函数进行地图展示
-                        UIMsgShow();
+                        //UIMsgShow();
                     }
                 }
                 
@@ -192,7 +192,7 @@ namespace AlarmMapClient
                 ((System.Timers.Timer)sender).Stop();
 
                 frmMain.FreshOnlineDevStatus(this.onlineDevices,false);
-                frmMain.FreshOnlineDevStatus(this.onlineDevices, true);
+                //frmMain.FreshOnlineDevStatus(this.onlineDevices, true);
 
                 isDevStatusGetOver = true;
             }
