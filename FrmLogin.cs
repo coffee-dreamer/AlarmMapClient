@@ -127,7 +127,8 @@ namespace AlarmMapClient
 
                         //查询单片机布撤防状态
                         Device dev2 = MDSUtils.GetDeviceInfo(szDeviceID);
-                        frmMain.SearchTransStatus(dev2, true);
+                        //frmMain.SearchTransStatus(dev2, true);
+                        frmMain.SearchTransStatus_NETSDK(dev2,true);
                     }
                     else
                     {

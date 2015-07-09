@@ -234,7 +234,7 @@ namespace AlarmMapClient
             isStopNodeTimer = false;
 
             node_timer = new System.Timers.Timer();
-            node_timer.Interval = 1000 * 60 * 2;
+            node_timer.Interval = 1000 * 60 * 30;
             node_timer.AutoReset = true;
             node_timer.Enabled = true;
             node_timer.Elapsed += trans_timer_Elapsed;
@@ -277,7 +277,7 @@ namespace AlarmMapClient
             int ret = 0;
             try
             {
-                int nBufLen = 6;
+                int nBufLen = 5;
                 byte[] data = new byte[] { 0xFF, 0x55, 0x01, 0x00, 0x01 };
 
                 IntPtr hglobal = System.Runtime.InteropServices.Marshal.AllocHGlobal(6);
@@ -337,11 +337,8 @@ namespace AlarmMapClient
                         if (d.Status == 1)
                         {//online
                             cnode.ImageIndex = 4;
-
-                            //searchDevStatus(d.DeviceID);
-                            //SearchTransStatus(d);
-                            //SearchTransStatus_NETSDK(d,false);
-                            sendTransportData(dev);
+                            //获取布撤防状态
+                            SearchTransStatus_NETSDK(d,true);
                         }
                         else
                         {
@@ -365,11 +362,8 @@ namespace AlarmMapClient
                     if (d.Status == 1)
                     {//online
                         node.ImageIndex = 4;
-
-                        //SearchTransStatus(d);
-                        //searchDevStatus(d.DeviceID);
-                        //SearchTransStatus_NETSDK(d, false);
-                        sendTransportData(dev);
+                        //获取布撤防状态
+                        SearchTransStatus_NETSDK(d, true);
                     }
                     else{
                         node.ImageIndex = 5;
@@ -415,7 +409,7 @@ namespace AlarmMapClient
             log.Info("查询单片机状态：" + deviceId);
             //if (!openTransportRs232_NETSDK(lhwd,deviceId)) return false;
 
-            int nBufLen = 6;
+            int nBufLen = 5;
 
             byte[] data = new byte[] { 0xFF, 0x55, 0x01, 0x00, 0x01 };
 
@@ -827,15 +821,16 @@ namespace AlarmMapClient
                 //}
 
                 //暂时不取单片机状态
-                
+
                 if (searchFqStatus(lhwd, dev2.DeviceID))
                 {
                     log.Error("串口消息写成功:" + dev2.DeviceName);
                     System.Threading.Thread.Sleep(1000);
                 }
                 else
+                {
                     log.Error("串口消息写异常" + dev2.DeviceName);
-                 
+                }
                 //stopTransportRs232(lhwd);
 
                 //重新开启转发的透传
@@ -2039,16 +2034,16 @@ namespace AlarmMapClient
         }
         private int searchDevStatus(string szDeviceID)
         {
-            int nBufLen = 6;
+            int nBufLen = 5;
 
             byte[] data = new byte[] { 0xFF, 0x55, 0x01, 0x00, 0x01 };
             GCHandle hObject = GCHandle.Alloc(data, GCHandleType.Pinned);
             IntPtr pObject = hObject.AddrOfPinnedObject();
             int ret= TransSDK.P_Client_WriteTransportData(szDeviceID, 0, pObject, nBufLen);
 
-            //if (hObject.IsAllocated)
+            if (hObject.IsAllocated)
+                hObject.Free();
 
-            hObject.Free();
             data = null;
             
             return ret;
@@ -2309,7 +2304,7 @@ namespace AlarmMapClient
             {
                 menu.Text = "禁止刷新设备状态";
                 this.isStopNodeTimer = false;
-                this.node_timer.Interval = 1000 * 60 * 3;
+                this.node_timer.Interval = 1000 * 60 * 60;
                 this.node_timer.Start();
             }
             else
